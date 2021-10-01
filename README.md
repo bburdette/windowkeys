@@ -124,7 +124,7 @@ events to Elm.
 
     </script>
 
-Put the above in your index.html or in a windowkeys.js file if you like.
+Put the above in your index.html or in a windowkeys.js file if you like (without the <script> tags).
 
 Then after your elm app initialization, you'll need to add a port subscription and an event listener, like so:
 

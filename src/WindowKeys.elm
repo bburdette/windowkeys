@@ -1,9 +1,21 @@
 module WindowKeys exposing (Key, WindowKeyCmd(..), receive, send)
 
+{-| This WindowKeys Elm module lets you encode and decode messages to pass to javascript,
+where the actual websocket sending and receiving will take place. See the README for more.
+
+@docs Key
+@docs WindowKeyCmd
+@docs decodeKey
+@docs encodeKey
+@docs receive
+@docs send
+
+-}
+
 import Json.Decode as JD
 import Json.Encode as JE
 
-
+{-| Key struct - both outgoing "SetWindowKeys" and incoming keypress messages. -}
 type alias Key =
     { key : String
     , ctrl : Bool
@@ -12,7 +24,7 @@ type alias Key =
     , preventDefault : Bool
     }
 
-
+{-| Only one WindowKeyCmd for now, SetWindowKeys.  Use an empty list to stop all key messages. -}
 type WindowKeyCmd
     = SetWindowKeys (List Key)
 
@@ -20,7 +32,7 @@ type WindowKeyCmd
 type alias WindowKeyMsg =
     Key
 
-
+{-| Key struct to json -}
 encodeKey : Key -> JE.Value
 encodeKey key =
     JE.object
@@ -31,7 +43,7 @@ encodeKey key =
         , ( "preventDefault", JE.bool key.preventDefault )
         ]
 
-
+{-| json to Key struct -}
 decodeKey : JD.Decoder Key
 decodeKey =
     JD.map5 Key
@@ -41,7 +53,7 @@ decodeKey =
         (JD.field "shift" JD.bool)
         (JD.field "preventDefault" JD.bool)
 
-
+{-| WindowKeyCmd to json -}
 encodeCmd : WindowKeyCmd -> JE.Value
 encodeCmd c =
     case c of
@@ -53,7 +65,7 @@ encodeCmd c =
 
 
 
-{- use send to make a convenience function,
+{-| use send to make a convenience function,
    like so:
          port sendKeyCommand : JE.Value -> Cmd msg
          wksend =
@@ -65,15 +77,13 @@ encodeCmd c =
                 [ { key = "Tab", ctrl = True, alt = True, shift = False, preventDefault = True }
                 , { key = "s", ctrl = True, alt = False, shift = False, preventDefault = True }])
 -}
-
-
 send : (JE.Value -> Cmd msg) -> WindowKeyCmd -> Cmd msg
 send portfn wsc =
     portfn (encodeCmd wsc)
 
 
 
-{- make a subscription function with receive and a port, like so:
+{-| make a subscription function with receive and a port, like so:
          port receiveKeyMsg : (JD.Value -> msg) -> Sub msg
          keyreceive =
              receiveSocketMsg <| WindowKey.receive WsMsg
@@ -85,8 +95,6 @@ send portfn wsc =
          subscriptions =
              \_ -> keyreceive
 -}
-
-
 receive : (Result JD.Error WindowKeyMsg -> msg) -> (JD.Value -> msg)
 receive toKeyMsg =
     \v ->
