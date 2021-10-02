@@ -73,7 +73,7 @@ encodeCmd c =
 then you can call (makes a Cmd):
 
     wksend <|
-        (SetWindowKeys
+        SetWindowKeys
             [ { key = "s"
               , ctrl = True
               , alt = False
@@ -84,7 +84,7 @@ then you can call (makes a Cmd):
               , alt = False
               , shift = False
               , preventDefault = False }
-            ])
+            ]
 -}
 send : (JE.Value -> Cmd msg) -> WindowKeyCmd -> Cmd msg
 send portfn wsc =

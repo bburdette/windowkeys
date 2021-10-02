@@ -53,7 +53,6 @@ is just a convenience function, see it in action in the usage example above.
 
     port sendKeyCommand : JE.Value -> Cmd msg
 
-
     skcommand =
         WindowKeys.send sendKeyCommand
 
@@ -69,6 +68,8 @@ There are two js functions needed - one recieves the list of keys from elm and s
 
 The other function is a keyboard event handler you attach to `window`.  It checks `windowkeys` and sends
 events to Elm.
+
+Both functions are defined in the following script, which is in file form [here](https://github.com/bburdette/windowkeys/blob/f54ea442a148956311fc44bfeeb8ba0a97e223d6/windowkey.js).
 
 
     <script>
@@ -132,7 +133,7 @@ events to Elm.
 
     </script>
 
-Put the above in your index.html or in a windowkeys.js file if you like (without the <script> tags).
+Put the above in your index.html or in a js file for import if you like (without the <script> tags).
 
 Then after your elm app initialization, you'll need to add a port subscription and an event listener, like so:
 
