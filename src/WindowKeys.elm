@@ -1,4 +1,4 @@
-module WindowKeys exposing (Key, WindowKeyCmd(..), receive, send)
+module WindowKeys exposing (Key, WindowKeyCmd(..), receive, send, encodeKey, decodeKey)
 
 {-| This WindowKeys Elm module lets you encode and decode messages to pass to javascript,
 where the actual websocket sending and receiving will take place. See the README for more.
@@ -9,7 +9,6 @@ where the actual websocket sending and receiving will take place. See the README
 @docs encodeKey
 @docs receive
 @docs send
-
 -}
 
 import Json.Decode as JD
