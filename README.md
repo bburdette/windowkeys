@@ -1,7 +1,7 @@
 # WindowKeys
 
-This package provides a way to subscribe to keyPress events for certain keys.  I wrote it to have a way to get
-reliable keyPress events for shortcut key combinations, like "ctrl-s".
+This package provides a way to subscribe to keyPress events for certain keys, at the window level of the DOM.
+I wrote it to have a way to get reliable keyPress events for shortcut key combinations, like "ctrl-s".
 
 Its pretty similar to what you get with Browser.onKeyPress, except that you only get events for keys you've
 specified.  Also - key point - you can tell if to 'preventDefault' on those keyPress events too,
