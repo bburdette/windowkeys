@@ -22,8 +22,16 @@ To do that I issue this Cmd from my `init` function:
 
     skcommand <|
         WindowKeys.SetWindowKeys
-            [ { key = "s", ctrl = True, alt = False, shift = False, preventDefault = True }
-            , { key = "Enter", ctrl = False, alt = False, shift = False, preventDefault = False }
+            [ { key = "s"
+              , ctrl = True
+              , alt = False
+              , shift = False
+              , preventDefault = True }
+            , { key = "Enter"
+              , ctrl = False
+              , alt = False
+              , shift = False
+              , preventDefault = False }
             ]
 
 So one key has preventDefault specified, and the other not.

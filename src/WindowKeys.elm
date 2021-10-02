@@ -64,17 +64,27 @@ encodeCmd c =
 
 
 
-{-| use send to make a convenience function,
-   like so:
-         port sendKeyCommand : JE.Value -> Cmd msg
-         wksend =
-             WindowKey.send sendKeyCommand
+{-| use send to make a convenience function, like so:
 
-   then you can call (makes a Cmd):
-         wksend <|
-             (SetWindowKeys
-                [ { key = "Tab", ctrl = True, alt = True, shift = False, preventDefault = True }
-                , { key = "s", ctrl = True, alt = False, shift = False, preventDefault = True }])
+    port sendKeyCommand : JE.Value -> Cmd msg
+    wksend =
+       WindowKey.send sendKeyCommand
+
+then you can call (makes a Cmd):
+
+    wksend <|
+        (SetWindowKeys
+            [ { key = "s"
+              , ctrl = True
+              , alt = False
+              , shift = False
+              , preventDefault = True }
+            , { key = "Enter"
+              , ctrl = False
+              , alt = False
+              , shift = False
+              , preventDefault = False }
+            ])
 -}
 send : (JE.Value -> Cmd msg) -> WindowKeyCmd -> Cmd msg
 send portfn wsc =
@@ -83,16 +93,21 @@ send portfn wsc =
 
 
 {-| make a subscription function with receive and a port, like so:
-         port receiveKeyMsg : (JD.Value -> msg) -> Sub msg
-         keyreceive =
-             receiveSocketMsg <| WindowKey.receive WsMsg
-   Where WkMessage is defined in your app like this:
-         type Msg
-             = WkMsg (Result JD.Error WindowKey.WindowKeyMsg)
-             | <other message types>
-   then in your application subscriptions:
-         subscriptions =
-             \_ -> keyreceive
+
+    port receiveKeyMsg : (JD.Value -> msg) -> Sub msg
+    keyreceive =
+        receiveSocketMsg <| WindowKey.receive WsMsg
+
+Where WkMsg is defined in your app like this:
+
+    type Msg
+        = WkMsg (Result JD.Error WindowKey.WindowKeyMsg)
+        | <other message types>
+
+then in your application subscriptions:
+
+    subscriptions =
+       \_ -> keyreceive
 -}
 receive : (Result JD.Error WindowKeyMsg -> msg) -> (JD.Value -> msg)
 receive toKeyMsg =
