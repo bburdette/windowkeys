@@ -3,7 +3,7 @@
     "name": "bburdette/windowkeys",
     "summary": "subscribe to window key presses; preventDefault if desired.",
     "license": "BSD-3-Clause",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "exposed-modules": [
         "WindowKeys"
     ],
