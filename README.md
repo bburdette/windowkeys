@@ -73,17 +73,13 @@ Both functions are defined in the following script, which is in file form [here]
 
 
     <script>
-        let windowkeysdebug = false;  // activate for help while getting set up.
-
         // this will contain the keys we're monitoring.
         let windowkeys = {};
 
         // wire up your sendKeyCommand port in elm to this function:
         //    app.ports.sendKeyCommand.subscribe(sendKeyCommand);
         function sendKeyCommand( kc ) {
-          if (windowkeysdebug) {
-            console.log("sendKeyCommand", kc);
-          }
+          // console.log("sendKeyCommand", kc);
 
           if (kc.cmd == "SetWindowKeys") {
             windowkeys = {};
@@ -114,9 +110,7 @@ Both functions are defined in the following script, which is in file form [here]
             if (pd) {
               e.preventDefault();
             }
-            if (windowkeysdebug) {
-              console.log("key found: ", e.key, " preventdefault: ", pd);
-            }
+            // console.log("key found: ", e.key, " preventdefault: ", pd);
 
             app.ports.receiveKeyMsg.send({ key : e.key
                                          , ctrl : e.ctrlKey
@@ -125,12 +119,9 @@ Both functions are defined in the following script, which is in file form [here]
                                          , preventDefault : pd});
           } catch (error)
           {
-            if (windowkeysdebug) {
-              console.log("key not found: ", e.key);
-            }
+           // console.log("key not found: ", e.key);
           }
         }
-
     </script>
 
 Put the above in your index.html or in a js file for import if you like (without the <script> tags).

@@ -96,7 +96,7 @@ send portfn wsc =
 
     port receiveKeyMsg : (JD.Value -> msg) -> Sub msg
     keyreceive =
-        receiveSocketMsg <| WindowKey.receive WsMsg
+        receiveKeyMsg <| WindowKey.receive WsMsg
 
 Where WkMsg is defined in your app like this:
 
