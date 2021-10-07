@@ -1,7 +1,7 @@
 module WindowKeys exposing (Key, WindowKeyCmd(..), receive, send, encodeKey, decodeKey)
 
 {-| This WindowKeys Elm module lets you encode and decode messages to pass to javascript,
-where the actual websocket sending and receiving will take place. See the README for more.
+where the actual key event listening will take place. See the README for more.
 
 @docs Key
 @docs WindowKeyCmd
