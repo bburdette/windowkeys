@@ -1,10 +1,10 @@
 # WindowKeys
 
-This package provides a way to subscribe to keyPress events for certain keys, at the window level of the DOM.
-I wrote it to have a way to get reliable keyPress events for shortcut key combinations, like "ctrl-s".
+This package provides a way to subscribe to keydown events for certain keys, at the window level of the DOM.
+I wrote it to have a way to get reliable keydown events for shortcut key combinations, like "ctrl-s".
 
 Its pretty similar to what you get with Browser.onKeyPress, except that you only get events for keys you've
-specified.  Also - key point - you can tell if to 'preventDefault' on those keyPress events too,
+specified.  Also - key point - you can tell if to 'preventDefault' on those keydown events too,
 something that Browser.onKeyPress does not provide.
 
 You can do something similar to this by adding a key event listener to your topmost html div element.  But sometimes
@@ -14,7 +14,7 @@ Better to subscribe to key events at the 'window' level.
 
 ### Usage example:
 
-I want to get a keyPress event for the Enter key, and for ctrl-s.  For Enter, I want to allow normal Enter key events
+I want to get a keydown event for the Enter key, and for ctrl-s.  For Enter, I want to allow normal Enter key events
 too; but for ctrl-s I want to prevent the normal browser event, which prompts the user to save the current page to a file.
 
 To do that I issue this Cmd from my `init` function:
