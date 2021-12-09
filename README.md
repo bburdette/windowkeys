@@ -1,6 +1,6 @@
 # WindowKeys
 
-This package provides a way to subscribe to keydown events for certain keys, at the window level of the DOM.
+This [elm package](https://package.elm-lang.org/packages/bburdette/windowkeys/latest/) provides a way to subscribe to keydown events for certain keys, at the window level of the DOM.
 I wrote it to have a way to get reliable keydown events for shortcut key combinations, like "ctrl-s".
 
 Its pretty similar to what you get with Browser.onKeyPress, except that you only get events for keys you've
