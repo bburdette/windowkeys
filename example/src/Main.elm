@@ -1,6 +1,7 @@
+port module Main exposing (..)
 
-module Main exposing (..)
-
+import Json.Decode as JD
+import Json.Encode as JE
 import Browser
 import Browser.Events
 import Element exposing (..)
@@ -9,6 +10,22 @@ import Element.Border as Border
 import Element.Events exposing (onClick, onMouseEnter, onMouseLeave)
 import Element.Font as Font
 import Element.Input as Input
+import WindowKeys
+
+
+port receiveKeyMsg : (JD.Value -> msg) -> Sub msg
+
+keyreceive =
+    receiveKeyMsg <| WindowKeys.receive WkMsg
+
+-- I'll also need this port for sending WindowKeys commands - pretty much just SetWindowKeys for now. skcommand is just a convenience function, see it in action in the usage example above.
+
+port sendKeyCommand : JE.Value -> Cmd msg
+
+skcommand =
+    WindowKeys.send sendKeyCommand
+
+
 
 
 -- Ellie for this one:  
@@ -17,6 +34,7 @@ import Element.Input as Input
 type Msgs
     = EnterCell Int
     | LeaveCell Int
+    | WkMsg (Result JD.Error WindowKeys.Key)
 
 
 type alias Model =
@@ -25,20 +43,38 @@ type alias Model =
 
 main =
     Browser.element
-        { init = \() -> ( { highlightRow = Nothing }, Cmd.none )
+        { init = \() -> ( { highlightRow = Nothing }, 
+            skcommand <|
+            WindowKeys.SetWindowKeys
+                [ { key = "s"
+                  , ctrl = True
+                  , alt = False
+                  , shift = False
+                  , preventDefault = True }
+                , { key = "Enter"
+                  , ctrl = False
+                  , alt = False
+                  , shift = False
+                  , preventDefault = False }
+                ] )
         , update = update
         , view = view
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = \_ -> keyreceive
         }
 
 
 update msg model =
+    let _ = Debug.log "msg" msg in
     case msg of
         EnterCell row ->
             ( { model | highlightRow = Just row }, Cmd.none )
 
         LeaveCell row ->
             ( { model | highlightRow = Just row }, Cmd.none )
+
+        WkMsg wkmsg ->
+            let _ = Debug.log "wkmsg" wkmsg in
+            ( model, Cmd.none )
 
 
 cellevents =
