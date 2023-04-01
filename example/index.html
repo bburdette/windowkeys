@@ -1,13 +1,13 @@
 <html>
 <head>
   <script type="text/javascript" src="/main.js"></script>
-  <script type="text/javascript" src="/static/windowkey.js"></script>
+  <script type="text/javascript" src="/windowkey.js"></script>
 </head>
 <body>
   <main></main>
   <script>
     var app = Elm.Main.init({ node: document.querySelector('main') })
-		// winddowkeys
+		// windowkeys
 		app.ports.sendKeyCommand.subscribe(sendKeyCommand);
 		window.addEventListener( "keydown", keycheck, false );
   </script>
