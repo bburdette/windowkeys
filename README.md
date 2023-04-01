@@ -12,7 +12,11 @@ that element loses focus, and then you don't get your shortcut events anymore.
 
 Better to subscribe to key events at the 'window' level.
 
-### Usage example:
+### Ellie
+
+Here's an [ellie](https://ellie-app.com/mqMNrkBNnVBa1) demonstrating the lib.  Same code as in /example in the repo.
+
+### Code example:
 
 I want to get a keydown event for the Enter key, and for ctrl-s.  For Enter, I want to allow normal Enter key events
 too; but for ctrl-s I want to prevent the normal browser event, which prompts the user to save the current page to a file.
