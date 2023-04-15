@@ -114,8 +114,11 @@ Both functions are defined in the following script, which is in file form [here]
             if (pd) {
               e.preventDefault();
             }
+            else {
+              // make false for cases like pd == null, undefined, etc.
+              pd = false;
+            }
             // console.log("key found: ", e.key, " preventdefault: ", pd);
-
             app.ports.receiveKeyMsg.send({ key : e.key
                                          , ctrl : e.ctrlKey
                                          , alt : e.altKey
